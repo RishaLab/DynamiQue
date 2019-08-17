@@ -4,5 +4,5 @@ Extracting topics from a text using LDA machine learning model. Then showing the
 # To run the application
 
 1) Download the files.
-2) Navigate inside the Root directory.
+2) Navigate to the Root directory.
 3) Run app.py file.
