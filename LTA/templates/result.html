@@ -13,12 +13,12 @@
 </head>
 <body>
 
-	<header>
+	<header style="margin-top: 80px;">
 		<div class="container">
 		<div id="brandname" style="text-align: center;">
 			<!--  -->
 		</div>
-		<h2 style = "text-align: center;">LDA</h2>
+		<h2 style = "text-align: center;">LIVE-TEXTBOOK</h2>
 		
 	</div>
     </header>
@@ -28,32 +28,26 @@
 
 
 
-	<div style="border: #d3d3d3 solid 0.5mm; padding: 30px; width: 70%; margin: auto">
-		<h2 style="color:red;text-align: center;">Text : " {{para}} " </h2>
+	<div style="border: #d3d3d3 solid 0.2mm; padding: 30px; width: 70%; margin: auto; margin-top: 80px;">
+		<h2 style="text-align: center;"> {{para}}  </h2>
 		
 		
-		<h3 style="color:green;text-align: center;">Keyword: " {{j_word}} " </h3>
+		<!-- <h3 style="color:green;text-align: center;">" {{j_word}} " </h3> -->
 
 		
 	</div>
 
+	
+	
+	
+	<div style="text-align: left; width: 45%;float:left;margin-left: 4%;margin-top:50px;">
+	
+		<h2 style="color:blue;text-align: center;margin-bottom: 10px;"><b>Questions</b></h2>
 
-	<h2 style="color:blue;text-align: center;"><b>Questions</b></h2>
+	
 
-	<div class="results">
-
-
-		
-	<!-- {% if prediction == 1%}
-	<h2 style="color:red;text-align: center;">Spam </h2>
-	{% elif prediction == 0%}
-	<h2 style="color:blue;text-align: center;">Not a Spam (It is a Ham)</h2>
-	{% endif %} -->
-
-	</div>
-
-	<div style="text-align: left; margin: auto;">
-		<div class="questions" style=" width: 60%; padding: 20px;margin: auto;">
+	
+		<div class="questions" style=" width: 90%; padding: 20px;margin: auto;">
 		
 		{%for i in j_data['questions']:%}
 			{% if loop.index0 < j_data['questions']|length %}
@@ -61,13 +55,13 @@
 			<h3  style="padding: 10px; text-decoration: none;" class="que" >{{loop.index0+1}}{{"   "}}{{i['question']}}</h3>
 			<a target = "_blank" href=https://stackoverflow.com/{{i['link']}} class="quelink" style="text-decoration: none;" ></j_data>
 				
-				<h5 style="border: #d3d3d3 solid 0.2mm; padding: 10px; margin-top: 0px;" class="ans">{{loop.index0+1}}{{"   "}}{{i['answer']}}</h5>
+				<h5 style="border: #d3d3d3 solid 0.2mm; font-size: 20px;line-height: 250%; padding: 10px; margin-top: 0px; height: 180px; overflow: auto;" class="ans">{{loop.index0+1}}{{"   "}}{{i['c_ans']}}</h5>
 			</a>
 			{% endif %}
 		{% endfor %}
 		</div>
 	</div>
-		<div class="ask" style="text-align: center; margin-bottom: 120px">
+		<!-- <div class="ask" style="text-align: center; margin-bottom: 120px">
 			
 				<p>Ask a question.</p>
 				<input style="width: 60%;height: 30px;padding: 20px;font-size: 30px;" type="text" id="myText">
@@ -77,13 +71,50 @@
 
 
 				
+		</div> -->
+	
+	
+		<div style="text-align: center; width: 45%;float:right;margin-left: 4%;margin-top:80px;">
+			
+			
+			<div class="ml-container">
+
+				<form action="{{ url_for('predict2')}}" method="POST">
+				<p>Ask a question</p>
+				<!-- <input type="text" name="comment"/> -->
+				<textarea name="message" rows="4" cols="50" style="border-radius: 12px;"></textarea>
+				<br/>
+		
+				<input type="submit" class="btn-info" value="Find" style="height: 30px;width: 100px;text-align: center;padding: 5px;margin-top: 20px;border-radius: 10px;">
+				
+			</form>
+				
+			</div>
+
+
+
+		<div class="new_que" style="text-align: left">
+			<div class="questions" style=" width: 90%; padding: 20px;margin: auto;">
+			{% if flag == 1%}
+			{%for i in j_qdata['questions']:%}
+				{% if loop.index0 < j_qdata['questions']|length %}
+				
+				
+				<a target = "_blank" href=https://stackoverflow.com/{{i['link']}} class="quelink" style="text-decoration: none;" ></j_qdata>
+					
+					<h3  style="padding: 10px; text-decoration: none;" class="que" >{{loop.index0+1}}{{"   "}}{{i['question']}}</h3>
+				</a>
+				{% endif %}
+			{% endfor %}
+			{% endif %}
+			</div>
 		</div>
+	</div>
 
 		<script>
 		function myFunction() {
 		var x = document.getElementById("myText").value;
 		window.open("https://stackoverflow.com/search?q="+x)
-		document.getElementById("demo").innerHTML = x;
 		}
 		</script>
 

@@ -7,12 +7,12 @@
 </head>
 <body style="padding: 80px;">
 
-		<header>
+		<header style="margin-top: 150px;">
 				<div class="container">
 				<div id="brandname" style="text-align: center;">
 					<!--  -->
 				</div>
-				<h2 style = "text-align: center;">LDA</h2>
+				<h2 style = "text-align: center;">LIVE-TEXTBOOK</h2>
 				
 			</div>
 			</header>
@@ -21,21 +21,29 @@
 	<div class="ml-container">
 
 		<form action="{{ url_for('predict')}}" method="POST">
-		<p>Enter the Message name Here</p>
+		<!-- <p>Enter the Message name Here</p> -->
 		<!-- <input type="text" name="comment"/> -->
-		<textarea name="message" rows="4" cols="50"></textarea>
+		<input id="demo" type="text" placeholder="Enter the name of a book" name="message" style="text-align: center;border-radius: 15px;height: 30px;width: 50%;padding: 10px;"></input>
 		<br/>
 
-		<input type="submit" class="btn-info" value="predict" style="height: 50px;width: 100px;text-align: center;padding: 5px;margin-top: 20px;">
+		<input type="submit" class="btn-info" value="QnA" style="height: 30px;border-radius: 10px;width: 100px;text-align: center;padding: 5px;margin-top: 20px;">
 		
 	</form>
 		
-    </div>
+	</div>
+	
+	<div class="av_books">
+		<h3 style="margin-top: 50px;">Available Books</h3>
+			{%for i in books:%}
+			<h5 id="data_books" onclick="myFunction()">{{i}}</h5>
+			{% endfor %}
+
+	</div>
 </div>
 
 
-	
-	
+
+
 
 </body>
 </html>
