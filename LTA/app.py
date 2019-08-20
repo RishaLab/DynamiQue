@@ -63,7 +63,7 @@ def predict2():
 		# We have used the lda module to get the topic word
 		
 
-		res = requests.get("https://stackoverflow.com/search?q="+message)
+		res = requests.get("https://stackoverflow.com/search?tab=votes&q="+message)
 
 		soup = BeautifulSoup(res.text, "html.parser")
 
@@ -165,7 +165,7 @@ def predict():
 		# We have used the lda module to get the topic word
 		
 
-		res = requests.get("https://stackoverflow.com/search?q="+word)
+		res = requests.get("https://stackoverflow.com/search?tab=votes&q="+word)
 
 		soup = BeautifulSoup(res.text, "html.parser")
 
