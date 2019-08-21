@@ -14,7 +14,7 @@ import sqlite3
 ##############################
 
 
-cur = [None]*3
+cur = [None]*4
 
 
 
@@ -34,6 +34,7 @@ def home():
 	book = []
 
 	for row in cursor.execute(s_q):
+			
 			book.append(row[1])
 			
 	print(book)
@@ -44,7 +45,7 @@ def home():
 @app.route('/predict2',methods=['POST'])
 def predict2():
 	if request.method == 'POST':
-		message = request.form['message']
+		message1 = request.form['message']
 
 		# connection = sqlite3.connect('data.db')
 
@@ -63,7 +64,7 @@ def predict2():
 		# We have used the lda module to get the topic word
 		
 
-		res = requests.get("https://stackoverflow.com/search?tab=votes&q="+message)
+		res = requests.get("https://stackoverflow.com/search?tab=votes&q="+message1)
 
 		soup = BeautifulSoup(res.text, "html.parser")
 
@@ -86,25 +87,25 @@ def predict2():
 			q = q.lstrip()
 			print(q)
 
-			if(q[0]=='A'):
-				comp_ans = requests.get("https://stackoverflow.com/"+link)
+			
+			comp_ans = requests.get("https://stackoverflow.com/"+link)
 
-				soup2 = BeautifulSoup(comp_ans.text, "html.parser")
+			soup2 = BeautifulSoup(comp_ans.text, "html.parser")
 
-				answers = soup2.select(".answer")
+			answers = soup2.select(".answer")
 
 				# print("this is not a test mf   " + answers[0].select_one('.post-text').getText())
 
-				c_ans = answers[0].select_one('.post-text').getText()
+			c_ans = answers[0].select_one('.post-text').getText()
 
-				questions_data['questions'].append({
-					"question": q,
-					"answer" : a,
-					"link" : link,
-					"c_ans" : c_ans,
+			questions_data['questions'].append({
+				"question": q[2:],
+				"answer" : a,
+				"link" : link,
+				"c_ans" : c_ans,
 					# "views": views,
 					# "vote_count": vote_count
-				})
+			})
 
 		json_data = json.dumps(questions_data)
 
@@ -122,9 +123,10 @@ def predict2():
 	data[0] = cur[0]
 	j_data = cur[1]
 	word = cur[2]
+	title = cur[3]
 
 
-	return render_template('result.html', para = data[0], j_data = j_data, j_word = word, j_qdata = j_data_new,flag = 1)
+	return render_template('result.html', para = data[0], j_data = j_data, j_word = word, j_qdata = j_data_new, title = title,flag = 1)
 	#return render_template('result.html', para = cur[0], j_data = cur[1], j_word = cur[2], flag = 1)
 	
 
@@ -188,25 +190,25 @@ def predict():
 			q = q.lstrip()
 			print(q)
 
-			if(q[0]=='A'):
-				comp_ans = requests.get("https://stackoverflow.com/"+link)
+			
+			comp_ans = requests.get("https://stackoverflow.com/"+link)
 
-				soup2 = BeautifulSoup(comp_ans.text, "html.parser")
+			soup2 = BeautifulSoup(comp_ans.text, "html.parser")
 
-				answers = soup2.select(".answer")
+			answers = soup2.select(".answer")
 
-				# print("this is not a test mf   " + answers[0].select_one('.post-text').getText())
+			# print("this is not a test mf   " + answers[0].select_one('.post-text').getText())
 
-				c_ans = answers[0].select_one('.post-text').getText()
+			c_ans = answers[0].select_one('.post-text').getText()
 
-				questions_data['questions'].append({
-					"question": q,
-					"answer" : a,
-					"link" : link,
-					"c_ans" : c_ans,
+			questions_data['questions'].append({
+				"question": q[2:],
+				"answer" : a,
+				"link" : link,
+				"c_ans" : c_ans,
 					# "views": views,
 					# "vote_count": vote_count
-				})
+			})
 
 		json_data = json.dumps(questions_data)
 
@@ -224,8 +226,9 @@ def predict():
 	cur[0] = data[0]
 	cur[1] = j_data
 	cur[2] = word
+	cur[3] = message
 
-	return render_template('result.html', para = data[0], j_data = j_data,j_qdata = j_data, j_word = word, flag = 0)
+	return render_template('result.html', para = data[0], j_data = j_data,j_qdata = j_data, j_word = word,title = message, flag = 0)
 	# return render_template('result.html', para = cur[0], j_data = cur[1], j_word = cur[2], flag = 0)
 	
 

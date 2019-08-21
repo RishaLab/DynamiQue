@@ -22,9 +22,10 @@
   border: 1px solid transparent;
   border-radius: 15px;
   border-color:  rgba(0, 0, 0, 0.2); 
- width: 47%;
+ width: 60%;
+ height: 50px;
  margin-bottom: 5px;
-
+font-size: 30px;
  text-align: center;
 }
 
@@ -73,7 +74,10 @@ button:focus {
 .que{
 	cursor: pointer;
 }
-
+::placeholder {
+  
+  opacity: 0.7; /* Firefox */
+}
 	</style>
 </head>
 <body style="padding: 50px;">
@@ -83,7 +87,7 @@ button:focus {
 		<div id="brandname" style="text-align: center;">
 			<!--  -->
 		</div>
-		<h2 style = "text-align: center;">LIVE-TEXTBOOK</h2>
+		<h2 style = "text-align: center;">{{title}}</h2>
 		
 	</div>
     </header>
