@@ -14,10 +14,7 @@ import sqlite3
 ##############################
 
 
-cur = [None]*4
-
-
-
+cur = [None]*5
 
 
 
@@ -40,6 +37,15 @@ def home():
 	print(book)
 
 	return render_template('home.html', books = book)
+
+
+@app.route('/test',methods=['POST'])
+def test():
+
+	return render_template('test.html', j_data = cur[4])
+
+
+
 
 
 @app.route('/predict2',methods=['POST'])
@@ -106,6 +112,11 @@ def predict2():
 					# "views": views,
 					# "vote_count": vote_count
 			})
+
+
+
+
+
 
 		json_data = json.dumps(questions_data)
 
@@ -210,6 +221,9 @@ def predict():
 					# "vote_count": vote_count
 			})
 
+	
+		test_que = questions_data
+
 		json_data = json.dumps(questions_data)
 
 		j_data = json.loads(json_data)
@@ -227,6 +241,7 @@ def predict():
 	cur[1] = j_data
 	cur[2] = word
 	cur[3] = message
+	cur[4] = test_que
 
 	return render_template('result.html', para = data[0], j_data = j_data,j_qdata = j_data, j_word = word,title = message, flag = 0)
 	# return render_template('result.html', para = cur[0], j_data = cur[1], j_word = cur[2], flag = 0)
